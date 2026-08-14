@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ขนมปังปุญ | ขนมปังเนยหนึบ บราวนี่ ป็อปคอร์นคาราเมล</title>
+  <meta name="description" content="สั่งขนมอบใหม่ทุกวัน ขนมปังเนยหนึบ บราวนี่อัลมอนด์ ป็อปคอร์นคาราเมล ส่งทั่วประเทศ" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#products">ข้ามไปที่รายการสินค้า</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">🧡</span>
+        <span class="brand-text">
+          <strong>ขนมปังปุญ</strong>
+          <small>ขนมอบใหม่ทุกวัน</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="เมนูหลัก">
+        <a href="#products">สินค้า</a>
+        <a href="#howto">วิธีสั่ง</a>
+        <a href="#contact">ติดต่อ</a>
+        <a href="admin.html" class="nav-admin">หลังร้าน</a>
+      </nav>
+
+      <button class="cart-button" id="cartButton" aria-label="เปิดตะกร้าสินค้า">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M2.5 3h2.7l2.6 11.5h10.4l2.3-8.5H6.2" />
+          <circle cx="9.5" cy="19.5" r="1.6" />
+          <circle cx="17.5" cy="19.5" r="1.6" />
+        </svg>
+        <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">อบใหม่ทุกวัน • ส่งทั่วประเทศ</p>
+          <h1>ขนมอบทำเอง<br />หนึบ หอม อร่อยจริง</h1>
+          <p class="lead">
+            ขนมปังเนยหนึบ บราวนี่อัลมอนด์ และป็อปคอร์นคาราเมลถั่วรวม
+            ทำสดใหม่ทุกรอบ เหมาะเป็นของฝากและของว่างประจำบ้าน
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#products">เลือกซื้อขนม</a>
+            <a class="btn btn-ghost" href="#howto">วิธีการสั่งซื้อ</a>
+          </div>
+          <ul class="hero-points">
+            <li><strong>3</strong> เมนูขายดี</li>
+            <li><strong>อบใหม่</strong> ทุกออเดอร์</li>
+            <li><strong>ไม่ใส่</strong> วัตถุกันเสีย</li>
+          </ul>
+        </div>
+
+        <div class="hero-art" id="heroArt" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="products" class="section">
+      <div class="container">
+        <header class="section-head">
+          <h2>เมนูขนมของเรา</h2>
+          <p>กดเลือกจำนวนแล้วใส่ตะกร้า ระบบจะสรุปยอดให้อัตโนมัติ</p>
+        </header>
+
+        <div class="product-grid" id="productGrid">
+        </div>
+      </div>
+    </section>
+
+    <section id="howto" class="section section-alt">
+      <div class="container">
+        <header class="section-head">
+          <h2>สั่งซื้อง่าย 4 ขั้นตอน</h2>
+        </header>
+        <ol class="steps">
+          <li><span class="step-no">1</span><h3>เลือกขนม</h3><p>กดใส่ตะกร้าตามจำนวนที่ต้องการ</p></li>
+          <li><span class="step-no">2</span><h3>กรอกข้อมูลผู้รับ</h3><p>ชื่อ เบอร์โทร และที่อยู่</p></li>
+          <li><span class="step-no">3</span><h3>ยืนยันออเดอร์</h3><p>รับเลขที่ออเดอร์ไว้แจ้งโอนเงิน</p></li>
+          <li><span class="step-no">4</span><h3>รอรับขนม</h3><p>ทางร้านโทรยืนยันและแจ้งเลขพัสดุ</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container contact-grid">
+        <div>
+          <h2>ติดต่อสั่งขนม</h2>
+          <p class="lead">สอบถามเพิ่มเติม หรือสั่งจำนวนมากสำหรับงานเลี้ยง ทักมาได้เลย</p>
+          <ul class="contact-list">
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M21.5 16.9v2.8a1.9 1.9 0 0 1-2.1 1.9 19 19 0 0 1-8.3-3 18.7 18.7 0 0 1-5.7-5.7 19 19 0 0 1-3-8.4A1.9 1.9 0 0 1 4.3 2.5h2.8a1.9 1.9 0 0 1 1.9 1.6c.1.9.3 1.7.6 2.5a1.9 1.9 0 0 1-.4 2L8 9.8a15.4 15.4 0 0 0 5.8 5.8l1.2-1.2a1.9 1.9 0 0 1 2-.4c.8.3 1.6.5 2.5.6a1.9 1.9 0 0 1 1.6 1.9z" />
+              </svg>
+              <a href="tel:0634244659">063-424-4659</a>
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M14.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.4 1.5-1.4h1.6V4.5c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4v2.1H8.5v3h2.7V21z" />
+              </svg>
+              Facebook: worawan chanphuang
+            </li>
+            <li>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="3" y="3" width="18" height="18" rx="5.5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.2" cy="6.8" r="1.1" class="icon-dot" />
+              </svg>
+              Instagram: ornypooh
+            </li>
+          </ul>
+        </div>
+        <div class="notice-card">
+          <h3>ข้อมูลของคุณปลอดภัย</h3>
+          <p>
+            เราเก็บชื่อ เบอร์โทร และที่อยู่ เพื่อใช้จัดส่งและติดต่อเรื่องออเดอร์เท่านั้น
+            ข้อมูลอยู่กับทางร้านโดยตรง ไม่ส่งต่อให้บุคคลที่สาม
+            และลบให้ได้ทันทีเมื่อคุณแจ้ง
+          </p>
+          <p class="mode-note" id="modeNote">กำลังตรวจสอบการเชื่อมต่อ…</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> ขนมปังปุญ</p>
+      <p class="footer-note">เว็บไซต์ตัวอย่าง (prototype) สำหรับทดสอบระบบรับออเดอร์</p>
+    </div>
+  </footer>
+
+  <div class="overlay" id="overlay" hidden></div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-label="ตะกร้าสินค้า" aria-hidden="true">
+    <header class="drawer-head">
+      <h2>ตะกร้าของคุณ</h2>
+      <button class="icon-btn" id="closeCart" aria-label="ปิดตะกร้า">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="drawer-body" id="cartItems">
+    </div>
+
+    <footer class="drawer-foot">
+      <dl class="summary">
+        <div><dt>จำนวนสินค้า</dt><dd id="sumCount">-</dd></div>
+        <div class="summary-total"><dt>ยอดที่ต้องจ่าย</dt><dd id="sumTotal">0 ฿</dd></div>
+      </dl>
+      <button class="btn btn-primary btn-block" id="goCheckout" disabled>สั่งซื้อ / กรอกข้อมูลจัดส่ง</button>
+    </footer>
+  </aside>
+
+  <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" hidden>
+    <div class="modal-card">
+      <header class="modal-head">
+        <h2 id="checkoutTitle">ข้อมูลผู้สั่งและการจัดส่ง</h2>
+        <button class="icon-btn" id="closeCheckout" aria-label="ปิดหน้าต่าง">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </header>
+
+      <form id="checkoutForm" class="modal-body" novalidate>
+        <p class="offline-warn" id="offlineWarn" hidden>
+          ขณะนี้ระบบสั่งซื้อออนไลน์ติดต่อไม่ได้ กรุณาโทร
+          <a href="tel:0634244659">063-424-4659</a> หรือทักเฟซบุ๊ก worawan chanphuang
+          เพื่อสั่งขนมได้เลย
+        </p>
+
+        <div class="field">
+          <label for="fName">ชื่อ-นามสกุล ผู้รับ <span class="req">*</span></label>
+          <input id="fName" name="name" type="text" autocomplete="name" required />
+          <p class="error" data-error-for="fName"></p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="fPhone">เบอร์โทร <span class="req">*</span></label>
+            <input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+                   placeholder="0812345678" required />
+            <p class="error" data-error-for="fPhone"></p>
+          </div>
+          <div class="field">
+            <label for="fEmail">อีเมล (ไม่บังคับ)</label>
+            <input id="fEmail" name="email" type="email" autocomplete="email" />
+            <p class="error" data-error-for="fEmail"></p>
+          </div>
+        </div>
+
+        <div class="field" id="addressField">
+          <label for="fAddress">ที่อยู่ <span class="req">*</span></label>
+          <textarea id="fAddress" name="address" rows="3" autocomplete="street-address" required
+                    placeholder="บ้านเลขที่ ถนน แขวง/ตำบล เขต/อำเภอ จังหวัด รหัสไปรษณีย์"></textarea>
+          <p class="error" data-error-for="fAddress"></p>
+        </div>
+
+        <fieldset class="field">
+          <legend>วิธีชำระเงิน <span class="req">*</span></legend>
+          <div class="radio-list">
+            <label class="radio">
+              <input type="radio" name="payment" value="promptpay" checked />
+              <span><strong>โอนเงิน / พร้อมเพย์</strong><small>063-424-4659 แจ้งสลิปหลังสั่ง</small></span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="payment" value="cod" />
+              <span><strong>เก็บเงินปลายทาง</strong><small>จ่ายตอนได้รับของ</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="fNote">หมายเหตุถึงร้าน (ไม่บังคับ)</label>
+          <textarea id="fNote" name="note" rows="2" placeholder="เช่น ขอส่งวันศุกร์ / ไม่ใส่ถั่ว"></textarea>
+        </div>
+
+        <label class="checkbox">
+          <input type="checkbox" id="fConsent" required />
+          <span>ยินยอมให้ร้านเก็บชื่อ เบอร์โทร และที่อยู่ เพื่อใช้จัดส่งและติดต่อเรื่องออเดอร์ <span class="req">*</span></span>
+        </label>
+        <p class="error" data-error-for="fConsent"></p>
+
+        <div class="order-recap" id="orderRecap"></div>
+
+        <p class="error error-form" id="formError"></p>
+
+        <button type="submit" class="btn btn-primary btn-block" id="submitOrder">ยืนยันสั่งซื้อ</button>
+        <button type="button" class="btn btn-ghost btn-block" id="copyFallback" hidden>
+          คัดลอกรายละเอียดไปส่งทางแชต
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="successTitle" hidden>
+    <div class="modal-card modal-card-sm">
+      <div class="success-body">
+        <div class="success-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <circle cx="12" cy="12" r="9.5" />
+            <path d="M7.5 12.4l3.2 3.2 5.8-6.6" />
+          </svg>
+        </div>
+        <h2 id="successTitle">รับออเดอร์แล้ว ขอบคุณค่ะ</h2>
+        <p class="order-id" id="successOrderId"></p>
+        <div class="success-detail" id="successDetail"></div>
+        <div class="success-actions">
+          <button class="btn btn-ghost" id="copyOrder">คัดลอกรายละเอียด</button>
+          <button class="btn btn-primary" id="closeSuccess">เรียบร้อย</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/shop.js"></script>
+</body>
+</html>

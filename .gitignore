@@ -1,0 +1,10 @@
+# เว็บนี้เป็นไฟล์ static ล้วน ข้อมูลจริงอยู่ใน Google Sheet ไม่มีไฟล์ข้อมูลในโปรเจกต์
+
+.DS_Store
+Thumbs.db
+.vscode/
+*.local
+node_modules/
+
+# ไฟล์ทดสอบชั่วคราว
+*-result.txt

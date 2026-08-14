@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>หลังร้าน | ขนมปังปุญ</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="same-origin" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <div class="container">
+      <h1>หลังร้าน • ออเดอร์และลูกค้า</h1>
+      <span class="spacer"></span>
+      <span class="user-chip" id="userChip" hidden>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M20 21v-1.8a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4V21" />
+          <circle cx="12" cy="7.5" r="3.8" />
+        </svg>
+        <strong id="userName"></strong>
+      </span>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn" hidden>ออกจากระบบ</button>
+      <a href="index.html" id="backLink">← หน้าร้าน</a>
+    </div>
+  </header>
+
+  <section class="auth-screen" id="loadingScreen">
+    <div class="auth-card">
+      <p class="auth-loading">กำลังตรวจสอบสิทธิ์…</p>
+    </div>
+  </section>
+
+  <section class="auth-screen" id="configScreen" hidden>
+    <div class="auth-card">
+      <span class="auth-badge">ต้องตั้งค่าก่อนใช้</span>
+      <h2>ยังไม่ได้เชื่อมกับ Google Sheet</h2>
+      <p class="auth-note">
+        เว็บนี้เก็บข้อมูลไว้ใน Google Sheet ของคุณ ผ่าน Google Apps Script
+        ต้องนำลิงก์ Web app มาใส่ในไฟล์ <code>js/config.js</code> ก่อน
+      </p>
+      <pre class="code-block">window.KHANOM_CONFIG = {
+  apiUrl: 'https://script.google.com/macros/s/xxxx/exec'
+};</pre>
+      <p class="auth-note">
+        ขั้นตอนละเอียดอยู่ในไฟล์ <code>apps-script/SETUP.md</code> ทำครั้งเดียวจบ
+      </p>
+      <button class="btn btn-primary btn-block" id="retryBtn2">ตั้งค่าแล้ว ลองอีกครั้ง</button>
+    </div>
+  </section>
+
+  <section class="auth-screen" id="offlineScreen" hidden>
+    <div class="auth-card">
+      <h2>ติดต่อ Google ไม่ได้</h2>
+      <p class="auth-note">
+        ข้อมูลออเดอร์และลูกค้าอยู่ใน Google Sheet ของคุณ ตอนนี้เรียกถึงไม่ได้
+      </p>
+      <ul class="info-list">
+        <li>ตรวจว่าเครื่องต่ออินเทอร์เน็ตอยู่</li>
+        <li>ตรวจว่า Apps Script ยัง deploy อยู่ และตั้ง Who has access เป็น <strong>Anyone</strong></li>
+        <li>ถ้าเพิ่งแก้โค้ด Apps Script ต้องกด Deploy ใหม่ทุกครั้ง</li>
+      </ul>
+      <p class="error error-form" id="offlineDetail"></p>
+      <button class="btn btn-primary btn-block" id="retryBtn">ลองเชื่อมต่ออีกครั้ง</button>
+    </div>
+  </section>
+
+  <section class="auth-screen" id="setupScreen" hidden>
+    <form class="auth-card" id="setupForm" novalidate autocomplete="off">
+      <span class="auth-badge">ตั้งค่าครั้งแรก</span>
+      <h2>สร้างบัญชีผู้ดูแลร้าน</h2>
+      <p class="auth-note">
+        ยังไม่มีบัญชีในระบบ ตั้งชื่อผู้ใช้และรหัสผ่านของคุณเพื่อใช้เข้าหลังร้าน
+        รหัสผ่านถูกเก็บแบบเข้ารหัสทางเดียว (PBKDF2-SHA256) ไว้ใน Script Properties
+        ของ Apps Script ไม่ได้อยู่ใน Google Sheet และไม่ได้อยู่ในโค้ดบน GitHub
+      </p>
+      <p class="auth-note auth-warn">
+        ทำขั้นนี้ทันทีหลัง deploy เพราะระหว่างที่ยังไม่มีบัญชี
+        ใครที่รู้ลิงก์เว็บสามารถชิงตั้งบัญชีก่อนได้
+      </p>
+
+      <div class="field">
+        <label for="setupUser">ชื่อผู้ใช้</label>
+        <input type="text" id="setupUser" autocomplete="username" placeholder="เช่น worawan" required />
+        <p class="field-hint">ยาว 3-40 ตัว ใช้ a-z 0-9 . _ - เท่านั้น</p>
+      </div>
+
+      <div class="field">
+        <label for="setupPass">รหัสผ่าน</label>
+        <input type="password" id="setupPass" autocomplete="new-password" required />
+        <p class="field-hint">อย่างน้อย 8 ตัว มีทั้งตัวอักษรและตัวเลข</p>
+      </div>
+
+      <div class="field">
+        <label for="setupPass2">ยืนยันรหัสผ่าน</label>
+        <input type="password" id="setupPass2" autocomplete="new-password" required />
+      </div>
+
+      <p class="error error-form" id="setupError"></p>
+      <button type="submit" class="btn btn-primary btn-block" id="setupSubmit">สร้างบัญชีและเข้าใช้งาน</button>
+      <p class="auth-note">
+        ถ้าลืมรหัส เปิดหน้า Apps Script แล้วสั่ง Run ฟังก์ชัน
+        <code>resetAdminAccount</code> เพื่อตั้งใหม่ ออเดอร์ใน Sheet ไม่หาย
+      </p>
+    </form>
+  </section>
+
+  <section class="auth-screen" id="loginScreen" hidden>
+    <form class="auth-card" id="loginForm" novalidate>
+      <div class="auth-logo" aria-hidden="true">🧡</div>
+      <h2>เข้าสู่ระบบหลังร้าน</h2>
+      <p class="auth-note">สำหรับเจ้าของร้านเท่านั้น</p>
+
+      <div class="field">
+        <label for="loginUser">ชื่อผู้ใช้</label>
+        <input type="text" id="loginUser" autocomplete="username" required />
+      </div>
+
+      <div class="field">
+        <label for="loginPass">รหัสผ่าน</label>
+        <div class="password-wrap">
+          <input type="password" id="loginPass" autocomplete="current-password" required />
+          <button type="button" class="peek-btn" id="peekPass" aria-label="แสดงรหัสผ่าน">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z" />
+              <circle cx="12" cy="12" r="2.8" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <p class="error error-form" id="loginError"></p>
+      <button type="submit" class="btn btn-primary btn-block" id="loginSubmit">เข้าสู่ระบบ</button>
+      <p class="auth-note">ลองรหัสผิดเกิน 8 ครั้งจะถูกพักการล็อกอิน 15 นาที</p>
+    </form>
+  </section>
+
+  <main class="container" id="adminMain" hidden style="padding-block:1.5rem 3rem">
+    <div class="stat-grid">
+      <div class="stat"><p class="stat-label">ออเดอร์ทั้งหมด</p><p class="stat-value" id="statOrders">0</p></div>
+      <div class="stat"><p class="stat-label">ยอดขายรวม</p><p class="stat-value" id="statRevenue">0 ฿</p></div>
+      <div class="stat"><p class="stat-label">ลูกค้าทั้งหมด</p><p class="stat-value" id="statCustomers">0</p></div>
+      <div class="stat"><p class="stat-label">รอดำเนินการ</p><p class="stat-value" id="statPending">0</p></div>
+    </div>
+
+    <div class="admin-tabs" role="tablist">
+      <button class="admin-tab" role="tab" id="tabOrders" aria-selected="true" aria-controls="panelOrders">ออเดอร์</button>
+      <button class="admin-tab" role="tab" id="tabCustomers" aria-selected="false" aria-controls="panelCustomers">ลูกค้า</button>
+      <button class="admin-tab" role="tab" id="tabProducts" aria-selected="false" aria-controls="panelProducts">ยอดตามสินค้า</button>
+      <button class="admin-tab" role="tab" id="tabAccount" aria-selected="false" aria-controls="panelAccount">บัญชีของฉัน</button>
+    </div>
+
+    <section id="panelOrders" role="tabpanel" aria-labelledby="tabOrders">
+      <div class="toolbar">
+        <input type="search" id="orderSearch" placeholder="ค้นหา เลขออเดอร์ / ชื่อ / เบอร์โทร" aria-label="ค้นหาออเดอร์" />
+        <select id="statusFilter" aria-label="กรองตามสถานะ">
+          <option value="">ทุกสถานะ</option>
+          <option value="new">ใหม่</option>
+          <option value="paid">ชำระแล้ว</option>
+          <option value="shipped">ส่งแล้ว</option>
+          <option value="done">เสร็จสิ้น</option>
+          <option value="cancelled">ยกเลิก</option>
+        </select>
+        <span class="spacer"></span>
+        <button class="btn btn-ghost btn-sm" id="refreshBtn">โหลดใหม่</button>
+        <button class="btn btn-ghost btn-sm" id="exportOrders">ส่งออก CSV</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>เลขออเดอร์</th>
+              <th>วันที่</th>
+              <th>ลูกค้า</th>
+              <th>รายการ</th>
+              <th class="num">จำนวน</th>
+              <th class="num">ยอดที่ต้องจ่าย</th>
+              <th>วิธีชำระ</th>
+              <th>สถานะ</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="orderRows">
+            <tr><td colspan="9" class="empty-row">กำลังโหลด…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="panelCustomers" role="tabpanel" aria-labelledby="tabCustomers" hidden>
+      <div class="toolbar">
+        <input type="search" id="customerSearch" placeholder="ค้นหา ชื่อ / เบอร์โทร" aria-label="ค้นหาลูกค้า" />
+        <span class="spacer"></span>
+        <button class="btn btn-ghost btn-sm" id="exportCustomers">ส่งออก CSV</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ชื่อ</th>
+              <th>เบอร์โทร</th>
+              <th>อีเมล</th>
+              <th>ที่อยู่</th>
+              <th class="num">ครั้ง</th>
+              <th class="num">ยอดสะสม</th>
+              <th>สินค้าที่ซื้อสะสม</th>
+              <th>ซื้อล่าสุด</th>
+            </tr>
+          </thead>
+          <tbody id="customerRows">
+            <tr><td colspan="8" class="empty-row">กำลังโหลด…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="panelProducts" role="tabpanel" aria-labelledby="tabProducts" hidden>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>สินค้า</th>
+              <th class="num">ราคา/หน่วย</th>
+              <th class="num">จำนวนที่ขายได้</th>
+              <th class="num">ยอดขาย</th>
+            </tr>
+          </thead>
+          <tbody id="productRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="panelAccount" role="tabpanel" aria-labelledby="tabAccount" hidden>
+      <div class="panel-grid">
+        <form class="panel-card" id="passwordForm" novalidate autocomplete="off">
+          <h3>เปลี่ยนรหัสผ่าน</h3>
+          <p class="auth-note">เปลี่ยนแล้วระบบจะออกจากระบบทุกอุปกรณ์ ต้องล็อกอินใหม่</p>
+
+          <div class="field">
+            <label for="curPass">รหัสผ่านเดิม</label>
+            <input type="password" id="curPass" autocomplete="current-password" required />
+          </div>
+          <div class="field">
+            <label for="newPass">รหัสผ่านใหม่</label>
+            <input type="password" id="newPass" autocomplete="new-password" required />
+            <p class="field-hint">อย่างน้อย 8 ตัว มีทั้งตัวอักษรและตัวเลข</p>
+          </div>
+          <div class="field">
+            <label for="newPass2">ยืนยันรหัสผ่านใหม่</label>
+            <input type="password" id="newPass2" autocomplete="new-password" required />
+          </div>
+
+          <p class="error error-form" id="passwordError"></p>
+          <button type="submit" class="btn btn-primary btn-block" id="passwordSubmit">บันทึกรหัสผ่านใหม่</button>
+        </form>
+
+        <div class="panel-card">
+          <h3>ข้อมูลของคุณเก็บที่ไหน</h3>
+          <ul class="info-list">
+            <li>ออเดอร์และลูกค้าอยู่ใน <strong>Google Sheet ของบัญชี Google คุณ</strong> ที่ชีต <code>Orders</code> และ <code>Customers</code></li>
+            <li>เปิด Sheet ดูหรือแก้เองได้ตลอด และแชร์ให้ใครก็เท่าที่คุณกดแชร์</li>
+            <li>รหัสผ่านเก็บเป็น hash PBKDF2-SHA256 พร้อม salt สุ่ม ใน Script Properties ไม่ได้อยู่ใน Sheet</li>
+            <li>เบราว์เซอร์ของลูกค้าเก็บแค่ตะกร้าของตัวเอง ไม่มีข้อมูลลูกค้ารายอื่น</li>
+            <li>เซสชันล็อกอินหมดอายุใน 7 วัน และหลุดเมื่อปิดแท็บ</li>
+          </ul>
+          <h3 style="margin-top:1.25rem">สำรองข้อมูล</h3>
+          <p class="auth-note">
+            ใน Google Sheet กด File → Make a copy เก็บไว้เป็นระยะ
+            หรือกดส่งออก CSV จากแท็บออเดอร์และลูกค้าในหน้านี้
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
